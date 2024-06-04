@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-	<AssemblyName>Bloodcraft</AssemblyName>
-	<Version>0.4.4</Version>
+	<AssemblyName>Tokens</AssemblyName>
+	<Version>0.1.0</Version>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	<BepInExPluginGuid>com.zfolmt.Bloodcraft</BepInExPluginGuid>
+	<BepInExPluginGuid>com.zfolmt.Tokens</BepInExPluginGuid>
 	<LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -39,8 +39,5 @@
 		<Message Text="DLL to V Rising Server" Importance="High" />
 		<Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\mitch\source\Repos\Bloodcraft" />
 		<Message Text="DLL Server Copied OK" Importance="High" />
-	</Target>
-	
-	
-    
+	</Target>    
 </Project>
