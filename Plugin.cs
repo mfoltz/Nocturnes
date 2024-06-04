@@ -57,7 +57,7 @@ public class Plugin : BasePlugin
         _dailyQuantity = InitConfigEntry("Config", "DailyQuantity", 50, "Amount of item rewarded for daily login.");
         _tokenRewardRatio = InitConfigEntry("Config", "RewardFactor", 10, "Tokens/reward.");
         _tokensPerMinute = InitConfigEntry("Config", "TokensPerMinute", 25, "Tokens/minute.");
-        _updateInterval = InitConfigEntry("Config", "UpdateInterval", 5, "Interval in minutes to update player tokens.");
+        _updateInterval = InitConfigEntry("Config", "UpdateInterval", 20, "Interval in minutes to update player tokens.");
      }
 
     static ConfigEntry<T> InitConfigEntry<T>(string section, string key, T defaultValue, string description)
