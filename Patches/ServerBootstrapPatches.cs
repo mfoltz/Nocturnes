@@ -52,7 +52,7 @@ public class ServerBootstrapPatches
             }
             else
             {
-                if (dailyLogin && DateTime.Now.Subtract(tokenData.Value.Value).Days >= 1)
+                if (dailyLogin && DateTime.Now.Subtract(tokenData.TimeData.DailyLogin).Days >= 1)
                 {
                     if (Core.ServerGameManager.TryAddInventoryItem(user.LocalCharacter._Entity, dailyReward, dailyQuantity))
                     {
@@ -67,11 +67,11 @@ public class ServerBootstrapPatches
                         string message = $"You've received <color=#00FFFF>{unformatted[..unformatted.IndexOf(' ')]}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }
-                    tokenData = new(tokenData.Key, new(tokenData.Value.Key, DateTime.Now));
+                    tokenData = new(tokenData.Tokens, new(tokenData.TimeData.Start, DateTime.Now));
                     Core.DataStructures.PlayerTokens[steamId] = tokenData;
                     Core.DataStructures.SavePlayerTokens();
                 }
-                tokenData = new(tokenData.Key, new(DateTime.Now, tokenData.Value.Value));
+                tokenData = new(tokenData.Tokens, new(DateTime.Now, tokenData.TimeData.DailyLogin));
                 Core.DataStructures.PlayerTokens[steamId] = tokenData;
                 Core.DataStructures.SavePlayerTokens();
             }
@@ -91,8 +91,8 @@ public class ServerBootstrapPatches
 
         if (tokenSystem && Core.DataStructures.PlayerTokens.TryGetValue(steamId, out var tokenData))
         {
-            TimeSpan timeOnline = DateTime.Now - tokenData.Value.Key;
-            tokenData = new(tokenData.Key + timeOnline.Minutes * tokensPerMinute, new(DateTime.Now, tokenData.Value.Value));
+            TimeSpan timeOnline = DateTime.Now - tokenData.TimeData.Start;
+            tokenData = new(tokenData.Tokens + timeOnline.Minutes * tokensPerMinute, new(DateTime.Now, tokenData.TimeData.DailyLogin));
             Core.DataStructures.PlayerTokens[steamId] = tokenData;
             Core.DataStructures.SavePlayerTokens();
         }

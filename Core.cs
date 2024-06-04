@@ -67,9 +67,9 @@ internal static class Core
 
         // structures to write to json for permanence
 
-        static Dictionary<ulong, KeyValuePair<int, KeyValuePair<DateTime, DateTime>>> playerTokens = [];
+        static Dictionary<ulong, (int Tokens, (DateTime Start, DateTime DailyLogin) TimeData)> playerTokens = [];
 
-        static public Dictionary<ulong, KeyValuePair<int, KeyValuePair<DateTime, DateTime>>> PlayerTokens
+        public static Dictionary<ulong, (int Tokens, (DateTime Start, DateTime DailyLogin) TimeData)> PlayerTokens
         {
             get => playerTokens;
             set => playerTokens = value;
@@ -138,8 +138,8 @@ internal static class Core
         }
         public static void SavePlayerTokens() => SaveData(PlayerTokens, "Tokens");
     }
-    public class JsonFiles
+    static class JsonFiles
     {
-        public static readonly string PlayerTokenJsons = Path.Combine(Plugin.PlayerTokensPath, "player_tokens.json");
+        public static readonly string PlayerTokenJsons = Plugin.PlayerTokensPath;
     }
 }

@@ -17,7 +17,7 @@ public class Plugin : BasePlugin
 
     public static readonly string ConfigPath = Path.Combine(Paths.ConfigPath, MyPluginInfo.PLUGIN_NAME);
 
-    public static readonly string PlayerTokensPath = Path.Combine(ConfigPath, "PlayerTokens");
+    public static readonly string PlayerTokensPath = Path.Combine(ConfigPath, "playerTokens.json");
 
     private static ConfigEntry<bool> _tokenSystem;
     private static ConfigEntry<bool> _dailyLogin;
@@ -27,7 +27,6 @@ public class Plugin : BasePlugin
     private static ConfigEntry<int> _tokenRewardRatio;
     private static ConfigEntry<int> _tokensPerMinute;
     private static ConfigEntry<int> _updateInterval;
-
     public static bool TokenSystem => _tokenSystem.Value;
     public static bool DailyLogin => _dailyLogin.Value;
     public static int DailyReward => _dailyReward.Value;
@@ -52,12 +51,12 @@ public class Plugin : BasePlugin
 
         _tokenSystem = InitConfigEntry("Config", "TokenSystem", false, "Enable or disable the token system.");
         _dailyLogin = InitConfigEntry("Config", "DailyLogin", false, "Enable or disable daily login rewards.");
-        _tokenReward = InitConfigEntry("Config", "ItemReward", -257494203, "Item prefab to use for reward (crystals default).");
-        _dailyReward = InitConfigEntry("Config", "DailyReward", -257494203, "Amount of daily rewards (crystals default).");
-        _dailyQuantity = InitConfigEntry("Config", "DailyQuantity", 50, "Amount of item rewarded for daily login.");
-        _tokenRewardRatio = InitConfigEntry("Config", "RewardFactor", 10, "Tokens/reward.");
-        _tokensPerMinute = InitConfigEntry("Config", "TokensPerMinute", 25, "Tokens/minute.");
-        _updateInterval = InitConfigEntry("Config", "UpdateInterval", 5, "Interval in minutes to update player tokens.");
+        _tokenReward = InitConfigEntry("Config", "ItemReward", -257494203, "Item prefab for token redeeming (crystals default).");
+        _dailyReward = InitConfigEntry("Config", "DailyReward", -257494203, "Item prefab for daily login (crystals default).");
+        _dailyQuantity = InitConfigEntry("Config", "DailyQuantity", 50, "Amount rewarded for daily login.");
+        _tokenRewardRatio = InitConfigEntry("Config", "RewardFactor", 10, "Tokens/reward when redeeming.");
+        _tokensPerMinute = InitConfigEntry("Config", "TokensPerMinute", 25, "Tokens/minute spent online.");
+        _updateInterval = InitConfigEntry("Config", "UpdateInterval", 15, "Interval in minutes to update player tokens.");
      }
 
     static ConfigEntry<T> InitConfigEntry<T>(string section, string key, T defaultValue, string description)

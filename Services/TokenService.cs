@@ -37,15 +37,18 @@ namespace Tokens.Services
         // Iterate through each entity in the query
         IEnumerator UpdateLoop()
         {
-            WaitForSeconds waitForSeconds = new WaitForSeconds(intervalMinutes * 60);
+            WaitForSeconds waitForSeconds = new(intervalMinutes * 60); // Convert minutes to seconds for update loop
             
             while (true)
             {
                 yield return waitForSeconds;
 
                 NativeArray<Entity> userEntities = userQuery.ToEntityArray(Allocator.TempJob);
+                DateTime now = DateTime.Now;
                 try
                 {
+                    Dictionary<ulong, (int Tokens, (DateTime Start, DateTime End) TimeData)> updatedTokens = [];
+
                     foreach (Entity userEntity in userEntities)
                     {
                         User user = userEntity.Read<User>();
@@ -53,12 +56,17 @@ namespace Tokens.Services
                         ulong steamId = user.PlatformId;
                         if (Core.DataStructures.PlayerTokens.TryGetValue(steamId, out var tokenData))
                         {
-                            TimeSpan timeOnline = DateTime.Now - tokenData.Value.Key;
-                            tokenData = new(tokenData.Key + timeOnline.Minutes * tokensPerMinute, new(DateTime.Now, tokenData.Value.Value));
-                            Core.DataStructures.PlayerTokens[steamId] = tokenData;
-                            Core.DataStructures.SavePlayerTokens();
+                            TimeSpan timeOnline = now - tokenData.TimeData.Start;
+                            int newTokens = tokenData.Tokens + timeOnline.Minutes * tokensPerMinute;
+                            updatedTokens[steamId] = (newTokens, (now, tokenData.TimeData.DailyLogin));
                         }
                     }
+                    foreach (var tokenData in updatedTokens)
+                    {
+                        Core.DataStructures.PlayerTokens[tokenData.Key] = tokenData.Value;
+                    }
+
+                    Core.DataStructures.SavePlayerTokens();
                 }
                 finally
                 {
