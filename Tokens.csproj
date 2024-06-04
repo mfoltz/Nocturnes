@@ -37,7 +37,7 @@
 	</Target>
 	<Target Name="CopyDLLsRepo" AfterTargets="Build">
 		<Message Text="DLL to V Rising Server" Importance="High" />
-		<Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\mitch\source\Repos\Bloodcraft" />
+		<Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\mitch\source\Repos\Tokens" />
 		<Message Text="DLL Server Copied OK" Importance="High" />
 	</Target>    
 </Project>
