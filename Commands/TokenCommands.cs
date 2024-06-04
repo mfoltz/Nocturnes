@@ -36,8 +36,8 @@ namespace Tokens.Commands
                     tokenData = new(tokenData.Tokens - cost, tokenData.TimeData);
                     Core.DataStructures.PlayerTokens[steamId] = tokenData;
                     Core.DataStructures.SavePlayerTokens();
-                    string unformatted = tokenReward.LookupName();
-                    ctx.Reply($"You've received <color=#00FFFF>{unformatted[..unformatted.IndexOf(' ')]}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>>{tokenData.Tokens}</color> tokens!");
+                    string[] parts = tokenReward.LookupName().Split(' ');
+                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{tokenData.Tokens}</color> tokens!");
                 }
                 else
                 {
@@ -45,8 +45,8 @@ namespace Tokens.Commands
                     Core.DataStructures.PlayerTokens[steamId] = tokenData;
                     Core.DataStructures.SavePlayerTokens();
                     Core.ServerGameManager.CreateDroppedItemEntity(ctx.Event.User.LocalCharacter._Entity, tokenReward, rewards);
-                    string unformatted = tokenReward.LookupName();
-                    ctx.Reply($"You've received <color=#00FFFF>{unformatted[..unformatted.IndexOf(' ')]}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>>{tokenData.Tokens}</color> tokens! It dropped on the ground because your inventory was full.");
+                    string[] parts = tokenReward.LookupName().Split(' ');
+                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{tokenData.Tokens}</color> tokens! It dropped on the ground because your inventory was full.");
                 }
             }
         }

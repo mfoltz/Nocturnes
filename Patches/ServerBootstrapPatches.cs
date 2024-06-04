@@ -38,14 +38,14 @@ public class ServerBootstrapPatches
                     if (Core.ServerGameManager.TryAddInventoryItem(user.LocalCharacter._Entity, dailyReward, dailyQuantity))
                     {
                         string unformatted = dailyReward.LookupName();
-                        string message = $"You've received <color=#00FFFF>{unformatted[..unformatted.IndexOf(' ')]}</color>x<color=white>{dailyQuantity}</color> for logging in today!";
+                        string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today!";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }
                     else
                     {
                         Core.ServerGameManager.CreateDroppedItemEntity(user.LocalCharacter._Entity, dailyReward, dailyQuantity);
                         string unformatted = dailyReward.LookupName();
-                        string message = $"You've received <color=#00FFFF>{unformatted[..unformatted.IndexOf(' ')]}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
+                        string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }
                 }                
@@ -56,15 +56,14 @@ public class ServerBootstrapPatches
                 {
                     if (Core.ServerGameManager.TryAddInventoryItem(user.LocalCharacter._Entity, dailyReward, dailyQuantity))
                     {
-                        string unformatted = dailyReward.LookupName();
-                        string message = $"You've received <color=#00FFFF>{unformatted[..unformatted.IndexOf(' ')]}</color>x<color=white>{dailyQuantity}</color> for logging in today!";
+                        string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today!";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }
                     else
                     {
                         Core.ServerGameManager.CreateDroppedItemEntity(user.LocalCharacter._Entity, dailyReward, dailyQuantity);
-                        string unformatted = dailyReward.LookupName();
-                        string message = $"You've received <color=#00FFFF>{unformatted[..unformatted.IndexOf(' ')]}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
+                        string[] parts = dailyReward.LookupName().Split(' ');
+                        string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }
                     tokenData = new(tokenData.Tokens, new(tokenData.TimeData.Start, DateTime.Now));

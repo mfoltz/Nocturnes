@@ -55,6 +55,21 @@ internal static class Core
         }
         monoBehaviour.StartCoroutine(routine.WrapToIl2Cpp());
     }
+    public static string ExtractName(string input)
+    {
+        // Split the input string by spaces
+        string[] parts = input.Split(' ');
+
+        // Check if the first part contains underscores
+        if (parts.Length > 0 && parts[0].Contains("_"))
+        {
+            // Split the first part by underscores and take the last part
+            string[] nameParts = parts[0].Split('_');
+            return nameParts[^1];
+        }
+
+        return string.Empty;
+    }
     public class DataStructures
     {
         // Encapsulated fields with properties
