@@ -16,8 +16,7 @@ public class Plugin : BasePlugin
     public static ManualLogSource LogInstance => Instance.Log;
 
     public static readonly string ConfigPath = Path.Combine(Paths.ConfigPath, MyPluginInfo.PLUGIN_NAME);
-
-    public static readonly string PlayerTokensPath = Path.Combine(ConfigPath, "playerTokens.json");
+    public static readonly string PlayerTokensPath = Path.Combine(ConfigPath, "PlayerTokens");
 
     private static ConfigEntry<bool> _tokenSystem;
     private static ConfigEntry<bool> _dailyLogin;
@@ -47,7 +46,7 @@ public class Plugin : BasePlugin
     }
     static void InitConfig()
     {
-        CreateDirectories(PlayerTokensPath);
+        CreateDirectories(ConfigPath);
 
         _tokenSystem = InitConfigEntry("Config", "TokenSystem", false, "Enable or disable the token system.");
         _dailyLogin = InitConfigEntry("Config", "DailyLogin", false, "Enable or disable daily login rewards.");

@@ -33,7 +33,7 @@ public class ServerBootstrapPatches
                 tokenData = new(0, new(firstLogin, firstLogin));
                 Core.DataStructures.PlayerTokens.Add(steamId, tokenData);
                 Core.DataStructures.SavePlayerTokens();
-                if (Core.EntityManager.Exists(user.LocalCharacter._Entity))
+                if (dailyLogin && Core.EntityManager.Exists(user.LocalCharacter._Entity))
                 {
                     if (Core.ServerGameManager.TryAddInventoryItem(user.LocalCharacter._Entity, dailyReward, dailyQuantity))
                     {
