@@ -48,14 +48,14 @@ public class Plugin : BasePlugin
     {
         CreateDirectories(ConfigPath);
 
-        _nocturneSystem = InitConfigEntry("Config", "NocturneSystem", false, "Enable or disable Nocturnes.");
+        _nocturneSystem = InitConfigEntry("Config", "Nocturnes", false, "Enable or disable Nocturnes.");
         _dailyLogin = InitConfigEntry("Config", "DailyLogin", false, "Enable or disable daily login rewards.");
-        _nocturneReward = InitConfigEntry("Config", "NocturneItemReward", -257494203, "Item prefab for Nocturnes redeeming (crystals default).");
-        _dailyReward = InitConfigEntry("Config", "DailyReward", -257494203, "Item prefab for daily login (crystals default).");
-        _dailyQuantity = InitConfigEntry("Config", "DailyQuantity", 50, "Amount rewarded for daily login.");
-        _nocturneRewardRatio = InitConfigEntry("Config", "NocturnesRewardFactor", 10, "Nocturnes/reward when redeeming.");
-        _nocturnePerMinute = InitConfigEntry("Config", "NocturnesPerMinute", 25, "Nocturnes/minute spent online.");
-        _updateInterval = InitConfigEntry("Config", "NocturnesUpdateInterval", 15, "Interval in minutes to update player Nocturnes.");
+        _nocturneReward = InitConfigEntry("Config", "NocturnesItemReward", -257494203, "Item prefab for Nocturnes redeeming (crystals default).");
+        _dailyReward = InitConfigEntry("Config", "DailyItemReward", -257494203, "Item prefab for daily login (crystals default).");
+        _dailyQuantity = InitConfigEntry("Config", "DailyItemQuantity", 50, "Amount rewarded for daily login.");
+        _nocturneRewardRatio = InitConfigEntry("Config", "NocturnesRewardFactor", 50, "Nocturnes/reward when redeeming.");
+        _nocturnePerMinute = InitConfigEntry("Config", "NocturnesPerMinute", 5, "Nocturnes/minute spent online.");
+        _updateInterval = InitConfigEntry("Config", "NocturnesUpdateInterval", 30, "Interval in minutes to update player Nocturnes.");
      }
 
     static ConfigEntry<T> InitConfigEntry<T>(string section, string key, T defaultValue, string description)
