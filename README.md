@@ -1,6 +1,6 @@
 ## Table of Contents
 
-Change config values to suit your server economy.
+Change config values to suit your server economy. NOTE: RENAMING IMMINENT
 
 - [Features](#features)
 - [Commands](#commands)
