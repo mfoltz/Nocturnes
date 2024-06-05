@@ -1,6 +1,7 @@
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP.Utils.Collections;
 using Nocturnes.Services;
+using ProjectM;
 using ProjectM.Physics;
 using ProjectM.Scripting;
 using System.Collections;
@@ -16,6 +17,9 @@ internal static class Core
     public static EntityManager EntityManager { get; } = Server.EntityManager;
     public static ServerScriptMapper ServerScriptMapper { get; internal set; }
     public static ServerGameManager ServerGameManager => ServerScriptMapper.GetServerGameManager();
+    public static GameDataSystem GameDataSystem { get; internal set; }
+    public static EntityCommandBufferSystem EntityCommandBufferSystem { get; internal set; }
+
     public static ManualLogSource Log => Plugin.LogInstance;
 
     private static bool hasInitialized;
@@ -28,6 +32,8 @@ internal static class Core
         if (hasInitialized) return;
 
         ServerScriptMapper = Server.GetExistingSystemManaged<ServerScriptMapper>();
+        GameDataSystem = Server.GetExistingSystemManaged<GameDataSystem>();
+        EntityCommandBufferSystem = Server.GetExistingSystemManaged<EntityCommandBufferSystem>();
         NocturneService = new(); 
         // Initialize utility services
         Log.LogInfo($"{MyPluginInfo.PLUGIN_NAME}[{MyPluginInfo.PLUGIN_VERSION}] initialized!");

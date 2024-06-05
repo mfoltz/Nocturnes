@@ -1,4 +1,6 @@
+using ProjectM;
 using Stunlock.Core;
+using Unity.Entities;
 using VampireCommandFramework;
 
 namespace Nocturnes.Commands
@@ -31,7 +33,7 @@ namespace Nocturnes.Commands
                 int rewards = tokenData.Tokens / tokenRewardRatio;
                 int cost = rewards * tokenRewardRatio;
                 
-                if (Core.ServerGameManager.TryAddInventoryItem(ctx.Event.User.LocalCharacter._Entity, tokenReward, rewards))
+                if (Core.ServerGameManager.TryAddInventoryItem(ctx.Event.SenderCharacterEntity, tokenReward, rewards))
                 {
                     tokenData = new(tokenData.Tokens - cost, tokenData.TimeData);
                     Core.DataStructures.PlayerTokens[steamId] = tokenData;
@@ -40,11 +42,14 @@ namespace Nocturnes.Commands
                 }
                 else
                 {
-                    tokenData = new(tokenData.Tokens - cost, tokenData.TimeData);
-                    Core.DataStructures.PlayerTokens[steamId] = tokenData;
-                    Core.DataStructures.SavePlayerTokens();
-                    Core.ServerGameManager.CreateDroppedItemEntity(ctx.Event.User.LocalCharacter._Entity, tokenReward, rewards);
-                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> <color=#CBC3E3>Nocturnes</color>! It dropped on the ground because your inventory was full.");
+                    EntityCommandBuffer entityCommandBuffer = Core.EntityCommandBufferSystem.CreateCommandBuffer();
+                    if (InventoryUtilitiesServer.TryDropItem(Core.EntityManager, entityCommandBuffer, Core.GameDataSystem.ItemHashLookupMap, ctx.Event.SenderCharacterEntity, tokenReward, rewards))
+                    {
+                        tokenData = new(tokenData.Tokens - cost, tokenData.TimeData);
+                        Core.DataStructures.PlayerTokens[steamId] = tokenData;
+                        Core.DataStructures.SavePlayerTokens();
+                        ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> <color=#CBC3E3>Nocturnes</color>! It dropped on the ground because your inventory was full.");
+                    }
                 }
             }
         }

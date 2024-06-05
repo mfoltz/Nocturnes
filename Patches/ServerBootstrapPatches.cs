@@ -42,9 +42,12 @@ public class ServerBootstrapPatches
                     }
                     else
                     {
-                        Core.ServerGameManager.CreateDroppedItemEntity(user.LocalCharacter._Entity, dailyReward, dailyQuantity);
-                        string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
-                        ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
+                        EntityCommandBuffer entityCommandBuffer = Core.EntityCommandBufferSystem.CreateCommandBuffer();
+                        if (InventoryUtilitiesServer.TryDropItem(Core.EntityManager, entityCommandBuffer, Core.GameDataSystem.ItemHashLookupMap, user.LocalCharacter._Entity, dailyReward, dailyQuantity))
+                        {
+                            string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
+                            ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
+                        }
                     }
                 }                
             }
@@ -59,9 +62,12 @@ public class ServerBootstrapPatches
                     }
                     else
                     {
-                        Core.ServerGameManager.CreateDroppedItemEntity(user.LocalCharacter._Entity, dailyReward, dailyQuantity);
-                        string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
-                        ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
+                        EntityCommandBuffer entityCommandBuffer = Core.EntityCommandBufferSystem.CreateCommandBuffer();
+                        if (InventoryUtilitiesServer.TryDropItem(Core.EntityManager, entityCommandBuffer, Core.GameDataSystem.ItemHashLookupMap, user.LocalCharacter._Entity, dailyReward, dailyQuantity))
+                        {
+                            string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
+                            ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
+                        }
                     }
                     tokenData = new(tokenData.Tokens, new(tokenData.TimeData.Start, DateTime.Now));
                     Core.DataStructures.PlayerTokens[steamId] = tokenData;
