@@ -11,7 +11,7 @@ namespace Nocturnes.Commands
         static readonly int tokenRewardRatio = Plugin.TokenRewardRatio;
         static readonly int tokensPerMinute = Plugin.TokensPerMinute;
 
-        [Command(name: ".redeemNocturnes", shortHand: ".rn", adminOnly: false, usage: ".rn", description: "Redeems Nocturnes.")]
+        [Command(name: "redeemNocturnes", shortHand: "rn", adminOnly: false, usage: ".rn", description: "Redeems Nocturnes.")]
         public static void RedeemNocturnesCommand(ChatCommandContext ctx)
         {
             if (!Plugin.TokenSystem)
@@ -53,7 +53,7 @@ namespace Nocturnes.Commands
                 }
             }
         }
-        [Command(name: ".getNocturnes", shortHand: "get n", adminOnly: false, usage: ".get n", description: "Shows earned Nocturnes, also updates them.")]
+        [Command(name: "getNocturnes", shortHand: "get n", adminOnly: false, usage: ".get n", description: "Shows earned Nocturnes, also updates them.")]
         public static void GetNocturnesCommand(ChatCommandContext ctx)
         {
             if (!Plugin.TokenSystem)
