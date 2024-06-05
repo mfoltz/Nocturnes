@@ -1,15 +1,14 @@
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP.Utils.Collections;
-using ProjectM;
+using Nocturnes.Services;
 using ProjectM.Physics;
 using ProjectM.Scripting;
 using System.Collections;
 using System.Text.Json;
-using Tokens.Services;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Tokens;
+namespace Nocturnes;
 
 internal static class Core
 {
@@ -20,7 +19,7 @@ internal static class Core
     public static ManualLogSource Log => Plugin.LogInstance;
 
     private static bool hasInitialized;
-    public static TokenService TokenService { get; internal set; }
+    public static NocturneService NocturneService { get; internal set; }
 
     static MonoBehaviour monoBehaviour;
 
@@ -29,7 +28,7 @@ internal static class Core
         if (hasInitialized) return;
 
         ServerScriptMapper = Server.GetExistingSystemManaged<ServerScriptMapper>();
-        TokenService = new(); 
+        NocturneService = new(); 
         // Initialize utility services
         Log.LogInfo($"{MyPluginInfo.PLUGIN_NAME}[{MyPluginInfo.PLUGIN_VERSION}] initialized!");
         hasInitialized = true;
@@ -49,7 +48,7 @@ internal static class Core
     {
         if (monoBehaviour == null)
         {
-            var go = new GameObject("Tokens");
+            var go = new GameObject("Nocturnes");
             monoBehaviour = go.AddComponent<IgnorePhysicsDebugSystem>();
             UnityEngine.Object.DontDestroyOnLoad(go);
         }
@@ -61,7 +60,7 @@ internal static class Core
         string[] parts = input.Split(' ');
 
         // Check if the first part contains underscores
-        if (parts.Length > 0 && parts[0].Contains("_"))
+        if (parts.Length > 0 && parts[0].Contains('_'))
         {
             // Split the first part by underscores and take the last part
             string[] nameParts = parts[0].Split('_');

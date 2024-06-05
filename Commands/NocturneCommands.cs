@@ -1,20 +1,20 @@
 using Stunlock.Core;
 using VampireCommandFramework;
 
-namespace Tokens.Commands
+namespace Nocturnes.Commands
 {
-    public static class TokenCommands
+    public static class NocturneCommands
     {
         static readonly PrefabGUID tokenReward = new(Plugin.TokenReward);
         static readonly int tokenRewardRatio = Plugin.TokenRewardRatio;
         static readonly int tokensPerMinute = Plugin.TokensPerMinute;
 
-        [Command(name: ".redeemTokens", shortHand: "tokens", adminOnly: false, usage: ".tokens", description: "Redeems tokens for rewards.")]
-        public static void TokenRedeemCommand(ChatCommandContext ctx)
+        [Command(name: ".redeemNocturnes", shortHand: ".rn", adminOnly: false, usage: ".rn", description: "Redeems Nocturnes.")]
+        public static void RedeemNocturnesCommand(ChatCommandContext ctx)
         {
             if (!Plugin.TokenSystem)
             {
-                ctx.Reply("The token system is currently disabled.");
+                ctx.Reply("<color=#CBC3E3>Nocturnes</color> are currently disabled.");
                 return;
             }
 
@@ -24,7 +24,7 @@ namespace Tokens.Commands
             {
                 if (tokenData.Tokens < tokenRewardRatio)
                 {
-                    ctx.Reply("You don't have enough tokens to redeem.");
+                    ctx.Reply("You don't have enough <color=#CBC3E3>Nocturnes</color> to redeem.");
                     return;
                 }
 
@@ -36,8 +36,7 @@ namespace Tokens.Commands
                     tokenData = new(tokenData.Tokens - cost, tokenData.TimeData);
                     Core.DataStructures.PlayerTokens[steamId] = tokenData;
                     Core.DataStructures.SavePlayerTokens();
-                    string[] parts = tokenReward.LookupName().Split(' ');
-                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> tokens!");
+                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> <color=#CBC3E3>Nocturnes</color>!");
                 }
                 else
                 {
@@ -45,17 +44,16 @@ namespace Tokens.Commands
                     Core.DataStructures.PlayerTokens[steamId] = tokenData;
                     Core.DataStructures.SavePlayerTokens();
                     Core.ServerGameManager.CreateDroppedItemEntity(ctx.Event.User.LocalCharacter._Entity, tokenReward, rewards);
-                    string[] parts = tokenReward.LookupName().Split(' ');
-                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> tokens! It dropped on the ground because your inventory was full.");
+                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> <color=#CBC3E3>Nocturnes</color>! It dropped on the ground because your inventory was full.");
                 }
             }
         }
-        [Command(name: ".getTokens", shortHand: "get t", adminOnly: false, usage: ".get t", description: "Shows earned tokens, also updates them.")]
-        public static void GetTokensCommand(ChatCommandContext ctx)
+        [Command(name: ".getNocturnes", shortHand: "get n", adminOnly: false, usage: ".get n", description: "Shows earned Nocturnes, also updates them.")]
+        public static void GetNocturnesCommand(ChatCommandContext ctx)
         {
             if (!Plugin.TokenSystem)
             {
-                ctx.Reply("The token system is currently disabled.");
+                ctx.Reply("<color=#CBC3E3>Nocturnes</color> are currently disabled.");
                 return;
             }
 
@@ -67,7 +65,7 @@ namespace Tokens.Commands
                 tokenData = new(tokenData.Tokens + timeOnline.Minutes * tokensPerMinute, new(DateTime.Now, tokenData.TimeData.DailyLogin));
                 Core.DataStructures.PlayerTokens[steamId] = tokenData;
                 Core.DataStructures.SavePlayerTokens();
-                ctx.Reply($"Tokens updated! You have <color=#FFC0CB>{tokenData.Tokens}</color> tokens.");
+                ctx.Reply($"You have <color=#FFC0CB>{tokenData.Tokens}</color> <color=#CBC3E3>Nocturnes</color>.");
             }
         }
     }

@@ -6,7 +6,7 @@ using HarmonyLib;
 using System.Reflection;
 using VampireCommandFramework;
 
-namespace Tokens;
+namespace Nocturnes;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BasePlugin
@@ -16,23 +16,23 @@ public class Plugin : BasePlugin
     public static ManualLogSource LogInstance => Instance.Log;
 
     public static readonly string ConfigPath = Path.Combine(Paths.ConfigPath, MyPluginInfo.PLUGIN_NAME);
-    public static readonly string PlayerTokensPath = Path.Combine(ConfigPath, "PlayerTokens");
+    public static readonly string PlayerTokensPath = Path.Combine(ConfigPath, "PlayerNocturnes");
 
-    private static ConfigEntry<bool> _tokenSystem;
+    private static ConfigEntry<bool> _nocturneSystem;
     private static ConfigEntry<bool> _dailyLogin;
     private static ConfigEntry<int> _dailyReward;
     private static ConfigEntry<int> _dailyQuantity;
-    private static ConfigEntry<int> _tokenReward;
-    private static ConfigEntry<int> _tokenRewardRatio;
-    private static ConfigEntry<int> _tokensPerMinute;
+    private static ConfigEntry<int> _nocturneReward;
+    private static ConfigEntry<int> _nocturneRewardRatio;
+    private static ConfigEntry<int> _nocturnePerMinute;
     private static ConfigEntry<int> _updateInterval;
-    public static bool TokenSystem => _tokenSystem.Value;
+    public static bool TokenSystem => _nocturneSystem.Value;
     public static bool DailyLogin => _dailyLogin.Value;
     public static int DailyReward => _dailyReward.Value;
     public static int DailyQuantity => _dailyQuantity.Value;
-    public static int TokenReward => _tokenReward.Value;
-    public static int TokenRewardRatio => _tokenRewardRatio.Value;
-    public static int TokensPerMinute => _tokensPerMinute.Value;
+    public static int TokenReward => _nocturneReward.Value;
+    public static int TokenRewardRatio => _nocturneRewardRatio.Value;
+    public static int TokensPerMinute => _nocturnePerMinute.Value;
     public static int UpdateInterval => _updateInterval.Value;
 
     public override void Load()
@@ -48,14 +48,14 @@ public class Plugin : BasePlugin
     {
         CreateDirectories(ConfigPath);
 
-        _tokenSystem = InitConfigEntry("Config", "TokenSystem", false, "Enable or disable the token system.");
+        _nocturneSystem = InitConfigEntry("Config", "NocturneSystem", false, "Enable or disable Nocturnes.");
         _dailyLogin = InitConfigEntry("Config", "DailyLogin", false, "Enable or disable daily login rewards.");
-        _tokenReward = InitConfigEntry("Config", "ItemReward", -257494203, "Item prefab for token redeeming (crystals default).");
+        _nocturneReward = InitConfigEntry("Config", "NocturneItemReward", -257494203, "Item prefab for Nocturnes redeeming (crystals default).");
         _dailyReward = InitConfigEntry("Config", "DailyReward", -257494203, "Item prefab for daily login (crystals default).");
         _dailyQuantity = InitConfigEntry("Config", "DailyQuantity", 50, "Amount rewarded for daily login.");
-        _tokenRewardRatio = InitConfigEntry("Config", "RewardFactor", 10, "Tokens/reward when redeeming.");
-        _tokensPerMinute = InitConfigEntry("Config", "TokensPerMinute", 25, "Tokens/minute spent online.");
-        _updateInterval = InitConfigEntry("Config", "UpdateInterval", 15, "Interval in minutes to update player tokens.");
+        _nocturneRewardRatio = InitConfigEntry("Config", "NocturnesRewardFactor", 10, "Nocturnes/reward when redeeming.");
+        _nocturnePerMinute = InitConfigEntry("Config", "NocturnesPerMinute", 25, "Nocturnes/minute spent online.");
+        _updateInterval = InitConfigEntry("Config", "NocturnesUpdateInterval", 15, "Interval in minutes to update player Nocturnes.");
      }
 
     static ConfigEntry<T> InitConfigEntry<T>(string section, string key, T defaultValue, string description)
@@ -91,6 +91,6 @@ public class Plugin : BasePlugin
     }
     static void LoadAllData()
     {
-        if (_tokenSystem.Value) Core.DataStructures.LoadPlayerTokens();
+        if (_nocturneSystem.Value) Core.DataStructures.LoadPlayerTokens();
     }  
 }

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace Tokens;
+namespace Nocturnes;
 
 public static class ECSExtensions
 {

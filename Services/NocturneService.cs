@@ -1,6 +1,5 @@
 ﻿using BepInEx.Unity.IL2CPP.Utils.Collections;
 using Il2CppInterop.Runtime;
-using ProjectM;
 using ProjectM.Network;
 using ProjectM.Physics;
 using System.Collections;
@@ -8,9 +7,9 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Tokens.Services
+namespace Nocturnes.Services
 {
-    internal class TokenService
+    internal class NocturneService
     {
         static readonly int intervalMinutes = Plugin.UpdateInterval;
         static readonly int tokensPerMinute = Plugin.TokensPerMinute;
@@ -20,7 +19,7 @@ namespace Tokens.Services
 
         readonly IgnorePhysicsDebugSystem tokenMonoBehaviour;
 
-        public TokenService()
+        public NocturneService()
         {
             var queryDesc = new EntityQueryDesc
             {
@@ -30,7 +29,7 @@ namespace Tokens.Services
 
             userQuery = Core.EntityManager.CreateEntityQuery(queryDesc);
 
-            tokenMonoBehaviour = (new GameObject("TokenService")).AddComponent<IgnorePhysicsDebugSystem>();
+            tokenMonoBehaviour = (new GameObject("NocturneService")).AddComponent<IgnorePhysicsDebugSystem>();
             if (tokenSystem) tokenMonoBehaviour.StartCoroutine(UpdateLoop().WrapToIl2Cpp());
         }
 

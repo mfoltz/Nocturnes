@@ -5,7 +5,7 @@ using Stunlock.Core;
 using Stunlock.Network;
 using Unity.Entities;
 
-namespace Tokens.Patches;
+namespace Nocturnes.Patches;
 
 [HarmonyPatch]
 public class ServerBootstrapPatches
@@ -37,14 +37,12 @@ public class ServerBootstrapPatches
                 {
                     if (Core.ServerGameManager.TryAddInventoryItem(user.LocalCharacter._Entity, dailyReward, dailyQuantity))
                     {
-                        string unformatted = dailyReward.LookupName();
                         string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today!";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }
                     else
                     {
                         Core.ServerGameManager.CreateDroppedItemEntity(user.LocalCharacter._Entity, dailyReward, dailyQuantity);
-                        string unformatted = dailyReward.LookupName();
                         string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }
@@ -62,7 +60,6 @@ public class ServerBootstrapPatches
                     else
                     {
                         Core.ServerGameManager.CreateDroppedItemEntity(user.LocalCharacter._Entity, dailyReward, dailyQuantity);
-                        string[] parts = dailyReward.LookupName().Split(' ');
                         string message = $"You've received <color=#00FFFF>{Core.ExtractName(dailyReward.LookupName())}</color>x<color=white>{dailyQuantity}</color> for logging in today! It dropped on the ground because your inventory was full.";
                         ServerChatUtils.SendSystemMessageToClient(__instance.EntityManager, user, message);
                     }

@@ -1,9 +1,8 @@
 using HarmonyLib;
 using ProjectM;
-using Tokens;
 
 
-namespace Tokens.Patches;
+namespace Nocturnes.Patches;
 
 [HarmonyPatch(typeof(SpawnTeamSystem_OnPersistenceLoad), nameof(SpawnTeamSystem_OnPersistenceLoad.OnUpdate))]
 public static class InitializationPatch
