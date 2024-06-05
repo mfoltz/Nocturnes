@@ -26,7 +26,7 @@ namespace Nocturnes.Commands
             {
                 if (tokenData.Tokens < tokenRewardRatio)
                 {
-                    ctx.Reply("You don't have enough <color=#CBC3E3>Nocturnes</color> to redeem.");
+                    ctx.Reply($"You don't have enough <color=#CBC3E3>Nocturnes</color> to redeem. (<color=#FFC0CB>{tokenRewardRatio}</color> minimum)");
                     return;
                 }
 
@@ -42,14 +42,11 @@ namespace Nocturnes.Commands
                 }
                 else
                 {
-                    EntityCommandBuffer entityCommandBuffer = Core.EntityCommandBufferSystem.CreateCommandBuffer();
-                    if (InventoryUtilitiesServer.TryDropItem(Core.EntityManager, entityCommandBuffer, Core.GameDataSystem.ItemHashLookupMap, ctx.Event.SenderCharacterEntity, tokenReward, rewards))
-                    {
-                        tokenData = new(tokenData.Tokens - cost, tokenData.TimeData);
-                        Core.DataStructures.PlayerTokens[steamId] = tokenData;
-                        Core.DataStructures.SavePlayerTokens();
-                        ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> <color=#CBC3E3>Nocturnes</color>! It dropped on the ground because your inventory was full.");
-                    }
+                    tokenData = new(tokenData.Tokens - cost, tokenData.TimeData);
+                    Core.DataStructures.PlayerTokens[steamId] = tokenData;
+                    Core.DataStructures.SavePlayerTokens();
+                    InventoryUtilitiesServer.CreateDropItem(Core.EntityManager, ctx.Event.SenderCharacterEntity, tokenReward, rewards, new Entity());
+                    ctx.Reply($"You've received <color=#00FFFF>{Core.ExtractName(tokenReward.LookupName())}</color>x<color=white>{rewards}</color> for redeeming <color=#FFC0CB>{cost}</color> <color=#CBC3E3>Nocturnes</color>! It dropped on the ground because your inventory was full.");
                 }
             }
         }
