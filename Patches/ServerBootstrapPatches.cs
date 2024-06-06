@@ -5,7 +5,7 @@ using Stunlock.Core;
 using Stunlock.Network;
 using Unity.Entities;
 
-namespace Nocturnes.Patches;
+namespace Sanguis.Patches;
 
 [HarmonyPatch]
 public class ServerBootstrapPatches

@@ -1,6 +1,6 @@
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP.Utils.Collections;
-using Nocturnes.Services;
+using Sanguis.Services;
 using ProjectM;
 using ProjectM.Physics;
 using ProjectM.Scripting;
@@ -9,7 +9,7 @@ using System.Text.Json;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Nocturnes;
+namespace Sanguis;
 
 internal static class Core
 {
@@ -23,7 +23,7 @@ internal static class Core
     public static ManualLogSource Log => Plugin.LogInstance;
 
     private static bool hasInitialized;
-    public static NocturneService NocturneService { get; internal set; }
+    public static SanguisService SanguisService { get; internal set; }
 
     static MonoBehaviour monoBehaviour;
 
@@ -34,7 +34,7 @@ internal static class Core
         ServerScriptMapper = Server.GetExistingSystemManaged<ServerScriptMapper>();
         GameDataSystem = Server.GetExistingSystemManaged<GameDataSystem>();
         EntityCommandBufferSystem = Server.GetExistingSystemManaged<EntityCommandBufferSystem>();
-        NocturneService = new(); 
+        SanguisService = new(); 
         // Initialize utility services
         Log.LogInfo($"{MyPluginInfo.PLUGIN_NAME}[{MyPluginInfo.PLUGIN_VERSION}] initialized!");
         hasInitialized = true;
@@ -54,7 +54,7 @@ internal static class Core
     {
         if (monoBehaviour == null)
         {
-            var go = new GameObject("Nocturnes");
+            var go = new GameObject("Sanguis");
             monoBehaviour = go.AddComponent<IgnorePhysicsDebugSystem>();
             UnityEngine.Object.DontDestroyOnLoad(go);
         }

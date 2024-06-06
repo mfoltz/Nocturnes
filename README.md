@@ -8,36 +8,38 @@ Change config values to suit your server economy.
 
 ## Features
 
-- **Nocturnes:** Reward players with Nocturnes for being online. Can be redeemed in-game for a configurable item reward, Nocturnes per minute online and Nocturnes per item reward can be configured as well as the update interval.
-- **Daily Login Rewards:** Reward players with a congfigurable item/quantity for logging in once per day. Can be separate from Nocturnes item.
+- **Sanguis:** Reward players with Sanguis for being online. Can be redeemed in-game for a configurable item reward, Sanguis per minute online and Sanguis per item reward can be configured as well as the update interval.
+- **Daily Login Rewards:** Reward players with a congfigurable item/quantity for logging in once per day. Can be separate from Sanguis item.
 
 ## Commands
 
-### Nocturne Commands
-- `.redeemNocturnes`
-  - Redeem Nocturnes for items.
-  - Shortcut: *.rn*
-- `.getNocturnes`
-  - Get total Nocturnes. Also updates them.
-  - Shortcut: *.get n*
+### Sanguis Commands
+- `.redeemSanguis`
+  - Redeem Sanguis for items.
+  - Shortcut: *.rs*
+- `.getSanguis`
+  - Get total Sanguis. Also updates them.
+  - Shortcut: *.get s*
+- `.getDaily`  - Get daily time until daily or grants reward if eligible.
+  - Shortcut: *.get d*
  
 ## Configuration
 
 ### Reward Systems
-- **Nocturnes**: `Nocturnes` (bool, default: false)  
-  Enable or disable Nocturnes.
+- **Sanguis**: `Sanguis` (bool, default: false)  
+  Enable or disable Sanguis.
 - **Daily Logins**: `DailyLogin` (bool, default: false)  
-  Enable or disable daily logins. Nocturnes must be enabled as well.
+  Enable or disable daily logins. Sanguis must be enabled as well.
 - **Daily Item Reward**: `DailyReward` (int, default: -257494203)  
   Item prefab for daily reward.
 - **Daily Item Quantity**: `DailyQuantity` (int, default: 50)
   Item quantity for daily reward.
-- **Nocturnes Item Reward**: `NocturnesItemReward` (int, default: -257494203)  
-  Item prefab for redeeming Nocturnes.
-- **Nocturnes Reward Factor**: `NocturnesRewardFactor` (int, default: 50)  
-  Nocturnes required per item reward.
-- **Nocturnes Per Minute**: `NocturnesPerMinute` (int, default: 5)  
+- **Sanguis Item Reward**: `SanguisItemReward` (int, default: -257494203)  
+  Item prefab for redeeming Sanguis.
+- **Sanguis Reward Factor**: `SanguisRewardFactor` (int, default: 50)  
+  Sanguis required per item reward.
+- **Sanguis Per Minute**: `SanguisPerMinute` (int, default: 5)  
   Factor by which rates are increased in expertise/legacy per increment of prestige in leveling.
-- **Nocturnes Update Interval**: `NocturnesUpdateInterval` (int, default: 30)  
-  Interval in minutes to update player Nocturnes.
+- **Sanguis Update Interval**: `SanguisUpdateInterval` (int, default: 30)  
+  Interval in minutes to update player Sanguis.
 

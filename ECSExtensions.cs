@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace Nocturnes;
+namespace Sanguis;
 
 public static class ECSExtensions
 {

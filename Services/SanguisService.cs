@@ -7,9 +7,9 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Nocturnes.Services
+namespace Sanguis.Services
 {
-    internal class NocturneService
+    internal class SanguisService
     {
         static readonly int intervalMinutes = Plugin.UpdateInterval;
         static readonly int tokensPerMinute = Plugin.TokensPerMinute;
@@ -19,7 +19,7 @@ namespace Nocturnes.Services
 
         readonly IgnorePhysicsDebugSystem tokenMonoBehaviour;
 
-        public NocturneService()
+        public SanguisService()
         {
             var queryDesc = new EntityQueryDesc
             {
@@ -29,7 +29,7 @@ namespace Nocturnes.Services
 
             userQuery = Core.EntityManager.CreateEntityQuery(queryDesc);
 
-            tokenMonoBehaviour = (new GameObject("NocturneService")).AddComponent<IgnorePhysicsDebugSystem>();
+            tokenMonoBehaviour = (new GameObject("SanguisService")).AddComponent<IgnorePhysicsDebugSystem>();
             if (tokenSystem) tokenMonoBehaviour.StartCoroutine(UpdateLoop().WrapToIl2Cpp());
         }
 

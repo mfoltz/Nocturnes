@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-	<AssemblyName>Nocturnes</AssemblyName>
-	<Version>0.1.0</Version>
+	<AssemblyName>Sanguis</AssemblyName>
+	<Version>0.1.1</Version>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	<BepInExPluginGuid>com.zfolmt.Nocturnes</BepInExPluginGuid>
+	<BepInExPluginGuid>com.zfolmt.Sanguis</BepInExPluginGuid>
 	<LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -37,7 +37,7 @@
 	</Target>
 	<Target Name="CopyDLLsRepo" AfterTargets="Build">
 		<Message Text="DLL to V Rising Server" Importance="High" />
-		<Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\mitch\source\Repos\Nocturnes" />
+		<Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\mitch\source\Repos\Sanguis" />
 		<Message Text="DLL Server Copied OK" Importance="High" />
 	</Target>    
 </Project>
