@@ -20,7 +20,8 @@ Change config values to suit your server economy. NOTE: RENAMING IMMINENT
 - `.getSanguis`
   - Get total Sanguis. Also updates them.
   - Shortcut: *.get s*
-- `.getDaily`  - Get daily time until daily or grants reward if eligible.
+- `.getDaily`
+  - Get daily time until daily or grants reward if eligible.
   - Shortcut: *.get d*
  
 ## Configuration
