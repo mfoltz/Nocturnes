@@ -1,13 +1,9 @@
 using BepInEx.Logging;
-using BepInEx.Unity.IL2CPP.Utils.Collections;
-using Sanguis.Services;
 using ProjectM;
-using ProjectM.Physics;
 using ProjectM.Scripting;
-using System.Collections;
+using Sanguis.Services;
 using System.Text.Json;
 using Unity.Entities;
-using UnityEngine;
 
 namespace Sanguis;
 
@@ -17,29 +13,24 @@ internal static class Core
     public static EntityManager EntityManager { get; } = Server.EntityManager;
     public static ServerScriptMapper ServerScriptMapper { get; internal set; }
     public static ServerGameManager ServerGameManager => ServerScriptMapper.GetServerGameManager();
-    public static GameDataSystem GameDataSystem { get; internal set; }
-    public static EntityCommandBufferSystem EntityCommandBufferSystem { get; internal set; }
-
+    public static PrefabCollectionSystem PrefabCollectionSystem { get; internal set; }
+    public static LocalizationService Localization { get; } = new();
+    public static SanguisService SanguisService { get; internal set; }
     public static ManualLogSource Log => Plugin.LogInstance;
 
-    private static bool hasInitialized;
-    public static SanguisService SanguisService { get; internal set; }
-
-    static MonoBehaviour monoBehaviour;
-
+    static bool hasInitialized;
     public static void Initialize()
     {
         if (hasInitialized) return;
 
         ServerScriptMapper = Server.GetExistingSystemManaged<ServerScriptMapper>();
-        GameDataSystem = Server.GetExistingSystemManaged<GameDataSystem>();
-        EntityCommandBufferSystem = Server.GetExistingSystemManaged<EntityCommandBufferSystem>();
+        PrefabCollectionSystem = Server.GetExistingSystemManaged<PrefabCollectionSystem>();
         SanguisService = new(); 
         // Initialize utility services
         Log.LogInfo($"{MyPluginInfo.PLUGIN_NAME}[{MyPluginInfo.PLUGIN_VERSION}] initialized!");
         hasInitialized = true;
     }
-    private static World GetWorld(string name)
+    static World GetWorld(string name)
     {
         foreach (var world in World.s_AllWorlds)
         {
@@ -49,31 +40,6 @@ internal static class Core
             }
         }
         return null;
-    }
-    public static void StartCoroutine(IEnumerator routine)
-    {
-        if (monoBehaviour == null)
-        {
-            var go = new GameObject("Sanguis");
-            monoBehaviour = go.AddComponent<IgnorePhysicsDebugSystem>();
-            UnityEngine.Object.DontDestroyOnLoad(go);
-        }
-        monoBehaviour.StartCoroutine(routine.WrapToIl2Cpp());
-    }
-    public static string ExtractName(string input)
-    {
-        // Split the input string by spaces
-        string[] parts = input.Split(' ');
-
-        // Check if the first part contains underscores
-        if (parts.Length > 0 && parts[0].Contains('_'))
-        {
-            // Split the first part by underscores and take the last part
-            string[] nameParts = parts[0].Split('_');
-            return nameParts[^1];
-        }
-
-        return string.Empty;
     }
     public class DataStructures
     {
